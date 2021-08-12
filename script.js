@@ -40,13 +40,12 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function MercadoLibreRequisition(query) {
+function MLRequisition(query) {
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
-    .then((response) => {
-      console.log(response.json());
-    })
+    .then((response) => response.json())
+    .then((response) => {console.log(response.results);})
 }
 
 window.onload = () => {
-  fetchMercadoLibre('computador');
+  MLRequisition('computador');
  };
