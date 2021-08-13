@@ -85,7 +85,17 @@ async function clickAddition() {
   }, 100);
 }
 
+const test = 1948
+
+function sumElement() {
+  const pTag = document.createElement('p');
+  pTag.className = 'total-price';
+  pTag.innerText = `Preço total: $${test}`
+  document.querySelector('.cart').appendChild(pTag)
+}
+
 window.onload = () => {
   AssyncMLFetching('computador');
   clickAddition();
+  sumElement();
  };
