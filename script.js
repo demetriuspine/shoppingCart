@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemsSelection() {
-  return document.querySelector('.cart__items')
+  return document.querySelector('.cart__items');
 }
 
 function cartSaving() {
