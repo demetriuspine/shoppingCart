@@ -55,3 +55,7 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.cart__item:hover {
+  background-color: rgb(176, 193, 207);
+}
