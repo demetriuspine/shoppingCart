@@ -113,9 +113,27 @@ function setProductsFromLocalStorage() {
   }
 }
 
+function emptyCartSelection() {
+  return document.querySelector('.empty-cart');
+}
+
+function emptyCart() {
+  emptyCartSelection().addEventListener('click', () => {
+    localStorage.removeItem('cartList');
+    const olSelection = document.querySelector('.cart__items');
+    /** Source: https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/#:~:text=Child%20nodes%20can%20be%20removed,which%20produces%20the%20same%20output. */
+    let childElement = olSelection.lastElementChild;
+    while (childElement) {
+      olSelection.removeChild(childElement);
+      childElement = olSelection.lastElementChild;
+    }
+  });
+}
+
 window.onload = () => {
   AssyncMLFetching('computador');
   clickAddition();
   sumElement();
   setProductsFromLocalStorage();
+  emptyCart();
  };
