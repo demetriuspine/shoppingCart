@@ -30,6 +30,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  cartSaving();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -65,6 +66,7 @@ async function AssyncMLPricesByIDFetching(url) {
       salePrice: jsonParsing.price,
     };
     document.querySelector('.cart__items').appendChild(createCartItemElement(keyRearranges));
+    cartSaving();
   } catch (error) {
     console.log(error);
   }
@@ -83,15 +85,20 @@ async function clickAddition() {
       setURL(IDTaking);
     }));
   }, 100);
+  
 }
 
-const test = 1948;
+const test = 1948
 
 function sumElement() {
   const pTag = document.createElement('p');
   pTag.className = 'total-price';
   pTag.innerText = `Preço total: $${test}`;
   document.querySelector('.cart').appendChild(pTag);
+}
+
+function cartSaving() {
+  localStorage.setItem('cartList', document.querySelector('.cart__items').innerHTML)
 }
 
 window.onload = () => {
