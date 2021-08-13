@@ -56,6 +56,36 @@ async function AssyncMLFetching(query) {
   }
 }
 
+async function AssyncMLPricesByIDFetching(url) {
+  try {
+    const jsonParsing = await fetch(url).then((response) => response.json());
+    const keyRearranges = {
+      sku: jsonParsing.id,
+      name: jsonParsing.title,
+      salePrice: jsonParsing.price,
+    };
+    document.querySelector('.cart__items').appendChild(createCartItemElement(keyRearranges));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function setURL(id) {
+  const URLPattern = `https://api.mercadolibre.com/items/${id}`;
+  AssyncMLPricesByIDFetching(URLPattern);
+}
+
+async function clickAddition() {
+  setTimeout(() => {
+    const buttonsSelection = document.querySelectorAll('.item__add');
+    buttonsSelection.forEach((element) => element.addEventListener('click', (event) => {
+      const IDTaking = event.target.parentElement.firstElementChild.innerText;
+      setURL(IDTaking);
+    }));
+  }, 100);
+}
+
 window.onload = () => {
   AssyncMLFetching('computador');
+  clickAddition();
  };
