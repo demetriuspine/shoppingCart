@@ -88,7 +88,7 @@ async function clickAddition() {
   
 }
 
-const test = 1948
+const test = 1948;
 
 function sumElement() {
   const pTag = document.createElement('p');
@@ -98,11 +98,21 @@ function sumElement() {
 }
 
 function cartSaving() {
-  localStorage.setItem('cartList', document.querySelector('.cart__items').innerHTML)
+  localStorage.setItem('cartList', document.querySelector('.cart__items').innerHTML);
+}
+
+function setProductsFromLocalStorage() {
+  if (localStorage.length > 0) {
+    document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartList');
+    document.querySelectorAll('.cart__item').forEach((product) => {
+      product.addEventListener('click', cartItemClickListener);
+    });
+  }
 }
 
 window.onload = () => {
   AssyncMLFetching('computador');
   clickAddition();
   sumElement();
+  setProductsFromLocalStorage();
  };
