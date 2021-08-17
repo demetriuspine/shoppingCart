@@ -54,7 +54,7 @@ function sumCalc() {
     }
     const fixedSummation = summation.toFixed(2);
     /** https://www.horadecodar.com.br/2020/12/07/como-verificar-se-variavel-e-float-ou-inteiro-em-javascript/ */
-    if(Number.isInteger(summation)) {
+    if(Number.isInteger(summation) || Number.isInteger(summation * 10)) {
       document.querySelector('.total-price').innerHTML = summation;
     } else {
       document.querySelector('.total-price').innerHTML = fixedSummation;
