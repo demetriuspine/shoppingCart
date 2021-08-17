@@ -134,6 +134,20 @@ function sumCalc() {
   const itemSelection = document.querySelectorAll('.cart__item');
   if (itemSelection.length === 0) {
     document.querySelector('.total-price').innerHTML = 'Preço total: $0';
+  } else {
+    let summation = 0;
+    for (let index = 0; index < itemSelection.length; index += 1) {
+      const element = itemSelection[index];
+      const splitedElement = element.innerText.split(' ');
+      const price = splitedElement[splitedElement.length - 1];
+      const splitedPrice = price.split('');
+      splitedPrice.shift();
+      const joinedPrice = splitedPrice.join('');
+      const parsedPrice = parseFloat(joinedPrice);
+      summation += parsedPrice;
+    }
+    const fixedSummation = summation.toFixed(2);
+    document.querySelector('.total-price').innerHTML = `Preço total: $${fixedSummation}`;
   }
 }
 
