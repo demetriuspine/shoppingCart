@@ -15,12 +15,12 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  
   return section;
 }
 
@@ -36,9 +36,31 @@ function cartSaving() {
   localStorage.setItem('cartList', cartItemsSelection().innerHTML);
 }
 
+function sumCalc() {
+  const itemSelection = document.querySelectorAll('.cart__item');
+  if (itemSelection.length === 0) {
+    document.querySelector('.total-price').innerHTML = 'Preço total: $0';
+  } else {
+    let summation = 0;
+    for (let index = 0; index < itemSelection.length; index += 1) {
+      const element = itemSelection[index];
+      const splitedElement = element.innerText.split(' ');
+      const price = splitedElement[splitedElement.length - 1];
+      const splitedPrice = price.split('');
+      splitedPrice.shift();
+      const joinedPrice = splitedPrice.join('');
+      const parsedPrice = parseFloat(joinedPrice);
+      summation += parsedPrice;
+    }
+    const fixedSummation = summation.toFixed(2);
+    document.querySelector('.total-price').innerHTML = `Preço total: $${fixedSummation}`;
+  }
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   cartSaving();
+  sumCalc();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -75,6 +97,7 @@ async function AssyncMLPricesByIDFetching(url) {
     };
     cartItemsSelection().appendChild(createCartItemElement(keyRearranges));
     cartSaving();
+    sumCalc();
   } catch (error) {
     console.log(error);
   }
@@ -85,7 +108,7 @@ function setURL(id) {
   AssyncMLPricesByIDFetching(URLPattern);
 }
 
-async function clickAddition() {
+function clickAddition() {
   setTimeout(() => {
     const buttonsSelection = document.querySelectorAll('.item__add');
     buttonsSelection.forEach((element) => element.addEventListener('click', (event) => {
@@ -128,27 +151,6 @@ function emptyCart() {
       childElement = olSelection.lastElementChild;
     }
   });
-}
-
-function sumCalc() {
-  const itemSelection = document.querySelectorAll('.cart__item');
-  if (itemSelection.length === 0) {
-    document.querySelector('.total-price').innerHTML = 'Preço total: $0';
-  } else {
-    let summation = 0;
-    for (let index = 0; index < itemSelection.length; index += 1) {
-      const element = itemSelection[index];
-      const splitedElement = element.innerText.split(' ');
-      const price = splitedElement[splitedElement.length - 1];
-      const splitedPrice = price.split('');
-      splitedPrice.shift();
-      const joinedPrice = splitedPrice.join('');
-      const parsedPrice = parseFloat(joinedPrice);
-      summation += parsedPrice;
-    }
-    const fixedSummation = summation.toFixed(2);
-    document.querySelector('.total-price').innerHTML = `Preço total: $${fixedSummation}`;
-  }
 }
 
 window.onload = () => {
