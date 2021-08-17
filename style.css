@@ -58,4 +58,5 @@
 
 .cart__item:hover {
   background-color: rgb(176, 193, 207);
+  color: brown;
 }
