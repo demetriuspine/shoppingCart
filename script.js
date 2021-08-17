@@ -150,6 +150,7 @@ function emptyCart() {
       olSelection.removeChild(childElement);
       childElement = olSelection.lastElementChild;
     }
+    sumCalc();
   });
 }
 
