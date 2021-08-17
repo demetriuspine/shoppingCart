@@ -130,10 +130,18 @@ function emptyCart() {
   });
 }
 
+function sumCalc() {
+  const itemSelection = document.querySelectorAll('.cart__item');
+  if (itemSelection.length === 0) {
+    document.querySelector('.total-price').innerHTML = 'Preço total: $0';
+  }
+}
+
 window.onload = () => {
   AssyncMLFetching('computador');
   clickAddition();
   sumElement();
   setProductsFromLocalStorage();
   emptyCart();
+  sumCalc();
  };
