@@ -36,29 +36,33 @@ function cartSaving() {
   localStorage.setItem('cartList', cartItemsSelection().innerHTML);
 }
 
+function setPrice(selection) {
+  const totalPriceSelection = document.querySelector('.total-price');
+  let summation = 0;
+  for (let index = 0; index < selection.length; index += 1) {
+    const element = selection[index];
+    const splitedElement = element.innerText.split(' ');
+    const price = splitedElement[splitedElement.length - 1];
+    const splitedPrice = price.split('');
+    splitedPrice.shift();
+    const joinedPrice = splitedPrice.join('');
+    const parsedPrice = parseFloat(joinedPrice);
+    summation += parsedPrice;
+  }
+  const fixedSummation = summation.toFixed(2);
+  /** https://www.horadecodar.com.br/2020/12/07/como-verificar-se-variavel-e-float-ou-inteiro-em-javascript/ */
+  if (Number.isInteger(summation) || Number.isInteger(summation * 10)) {
+    totalPriceSelection.innerHTML = summation;
+  } else { totalPriceSelection.innerHTML = fixedSummation; }
+}
+
 function sumCalc() {
+  const totalPriceSelection = document.querySelector('.total-price');
   const itemSelection = document.querySelectorAll('.cart__item');
   if (itemSelection.length === 0) {
-    document.querySelector('.total-price').innerHTML = 0;
+    totalPriceSelection.innerHTML = 0;
   } else {
-    let summation = 0;
-    for (let index = 0; index < itemSelection.length; index += 1) {
-      const element = itemSelection[index];
-      const splitedElement = element.innerText.split(' ');
-      const price = splitedElement[splitedElement.length - 1];
-      const splitedPrice = price.split('');
-      splitedPrice.shift();
-      const joinedPrice = splitedPrice.join('');
-      const parsedPrice = parseFloat(joinedPrice);
-      summation += parsedPrice;
-    }
-    const fixedSummation = summation.toFixed(2);
-    /** https://www.horadecodar.com.br/2020/12/07/como-verificar-se-variavel-e-float-ou-inteiro-em-javascript/ */
-    if(Number.isInteger(summation) || Number.isInteger(summation * 10)) {
-      document.querySelector('.total-price').innerHTML = summation;
-    } else {
-      document.querySelector('.total-price').innerHTML = fixedSummation;
-    }
+    setPrice(itemSelection);
   }
 }
 
