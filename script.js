@@ -39,7 +39,7 @@ function cartSaving() {
 function sumCalc() {
   const itemSelection = document.querySelectorAll('.cart__item');
   if (itemSelection.length === 0) {
-    document.querySelector('.total-price').innerHTML = 'Preço total: $0';
+    document.querySelector('.total-price').innerHTML = 0;
   } else {
     let summation = 0;
     for (let index = 0; index < itemSelection.length; index += 1) {
@@ -53,7 +53,12 @@ function sumCalc() {
       summation += parsedPrice;
     }
     const fixedSummation = summation.toFixed(2);
-    document.querySelector('.total-price').innerHTML = `Preço total: $${fixedSummation}`;
+    /** https://www.horadecodar.com.br/2020/12/07/como-verificar-se-variavel-e-float-ou-inteiro-em-javascript/ */
+    if(Number.isInteger(summation)) {
+      document.querySelector('.total-price').innerHTML = summation;
+    } else {
+      document.querySelector('.total-price').innerHTML = fixedSummation;
+    }
   }
 }
 
@@ -118,12 +123,9 @@ function clickAddition() {
   }, 100);
 }
 
-const test = 1948;
-
 function sumElement() {
   const pTag = document.createElement('p');
   pTag.className = 'total-price';
-  pTag.innerText = `Preço total: $${test}`;
   document.querySelector('.cart').appendChild(pTag);
 }
 
