@@ -24,9 +24,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
 function cartItemsSelection() {
   return document.querySelector('.cart__items');
@@ -82,15 +82,13 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function AssyncMLFetching(query) {
   try {
-    const productsFromAPI = await Promise
-    .all(fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
-      .then((response) => response.json())
-      .then((resultList) => resultList.results
-        .forEach(({ id, title, thumbnail }) => {
-          const keyRearrange = { sku: id, name: title, image: thumbnail };
-          const ProductItemElementCreation = createProductItemElement(keyRearrange);
-          document.querySelector('.items').appendChild(ProductItemElementCreation);
-        })));
+    const productsFromAPI = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
+    return await productsFromAPI.json().then((resultList) => resultList.results
+    .forEach(({ id, title, thumbnail }) => {
+      const keyRearrange = { sku: id, name: title, image: thumbnail };
+      const ProductItemElementCreation = createProductItemElement(keyRearrange);
+      document.querySelector('.items').appendChild(ProductItemElementCreation);
+    }));      
   } catch (error) {
     console.log(error);
   }
@@ -98,7 +96,8 @@ async function AssyncMLFetching(query) {
 
 async function AssyncMLPricesByIDFetching(url) {
   try {
-    const jsonParsing = await fetch(url).then((response) => response.json());
+    const MLPricesURLFetching = await fetch(url);
+    const jsonParsing = await MLPricesURLFetching.json();
     const keyRearranges = {
       sku: jsonParsing.id,
       name: jsonParsing.title,
