@@ -60,3 +60,8 @@
   background-color: rgb(176, 193, 207);
   color: brown;
 }
+
+.loading {
+  width: 100px;
+  height: 100px;
+}
