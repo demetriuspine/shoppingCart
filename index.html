@@ -4,14 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Carrinho de compras</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
 
   <body>
-    <section class="container">
-      <section class="items"></section>
+    <header class="header">
+      <input class="input form-control" type="text" placeholder="Digite uma categoria de produto">
+      <button class="btn btn-success">Pesquisar</button>
+    </header>
+    <section class="contentContainer">
+      <section class="items">
+        <img class="gif" src="/rickAndMorty.gif" alt="">
+      </section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>

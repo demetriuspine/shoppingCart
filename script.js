@@ -126,7 +126,7 @@ function clickAddition() {
       const IDTaking = event.target.parentElement.firstElementChild.innerText;
       setURL(IDTaking);
     }));
-  }, 100);
+  }, 1000);
 }
 
 function sumElement() {
@@ -170,10 +170,32 @@ function addLoadingImg() {
   gifCreation.className = 'loading';
 }
 
+function removeItems() {
+  const itemsSelection = document.querySelector('.items');
+  while (itemsSelection.firstChild) {
+    itemsSelection.removeChild(itemsSelection.firstChild);
+  }
+}
+
+function setCategory() {
+  const buttonSelection = document.querySelector('.btn');
+  const inputSelection = document.querySelector('.input');
+  buttonSelection.addEventListener('click', () => {
+    removeItems();
+    addLoadingImg();
+    AssyncMLFetching(inputSelection.value);
+    inputSelection.value = '';
+    sumElement(); 
+    setProductsFromLocalStorage();
+    emptyCart();
+    sumCalc();
+    clickAddition();
+  });
+}
+
 window.onload = () => {
-  addLoadingImg();
-  AssyncMLFetching('computador');
-  clickAddition();
+  setCategory();
+  // AssyncMLFetching('computador');
   sumElement();
   setProductsFromLocalStorage();
   emptyCart();
