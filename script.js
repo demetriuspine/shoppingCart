@@ -74,10 +74,10 @@ function cartItemClickListener(event) {
   sumCalc();
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ name, salePrice }) {
   const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.className = 'cart__item list-group-item';
+  li.innerText = `${name}\n PREÇO: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
