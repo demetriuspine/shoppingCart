@@ -12,13 +12,16 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
-  
+  const formattedPrice = price
+    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('span', 'item__price', formattedPrice));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   
   return section;
@@ -119,8 +122,8 @@ async function AssyncMLFetching(query) {
     const resultsFromApi = jsonParsing.results;
     const teste2 = document.querySelector('.items');
     teste2.removeChild(document.querySelector('.loading'));
-    resultsFromApi.forEach(({ id, title, thumbnail }) => {
-      const keyRearrange = { sku: id, name: title, image: thumbnail };
+    resultsFromApi.forEach(({ id, title, thumbnail, price }) => {
+      const keyRearrange = { sku: id, name: title, image: thumbnail, price };
       const ProductItemElementCreation = createProductItemElement(keyRearrange);
       document.querySelector('.items').appendChild(ProductItemElementCreation);
     });
