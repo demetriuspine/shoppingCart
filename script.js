@@ -80,23 +80,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-async function AssyncMLFetching(query) {
-  try {
-    const productsFromAPI = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
-    const jsonParsing = await productsFromAPI.json();
-    const resultsFromApi = jsonParsing.results;
-    const teste2 = document.querySelector('.items');
-    teste2.removeChild(document.querySelector('.loading'));
-    return resultsFromApi.forEach(({ id, title, thumbnail }) => {
-      const keyRearrange = { sku: id, name: title, image: thumbnail };
-      const ProductItemElementCreation = createProductItemElement(keyRearrange);
-      document.querySelector('.items').appendChild(ProductItemElementCreation);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function AssyncMLPricesByIDFetching(url) {
   try {
     const MLPricesURLFetching = await fetch(url);
@@ -120,13 +103,29 @@ function setURL(id) {
 }
 
 function clickAddition() {
-  setTimeout(() => {
-    const buttonsSelection = document.querySelectorAll('.item__add');
-    buttonsSelection.forEach((element) => element.addEventListener('click', (event) => {
-      const IDTaking = event.target.parentElement.firstElementChild.innerText;
-      setURL(IDTaking);
-    }));
-  }, 1000);
+  const buttonsSelection = document.querySelectorAll('.item__add');
+  buttonsSelection.forEach((element) => element.addEventListener('click', (event) => {
+    const IDTaking = event.target.parentElement.firstElementChild.innerText;
+    setURL(IDTaking);
+  }));
+}
+
+async function AssyncMLFetching(query) {
+  try {
+    const productsFromAPI = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
+    const jsonParsing = await productsFromAPI.json();
+    const resultsFromApi = jsonParsing.results;
+    const teste2 = document.querySelector('.items');
+    teste2.removeChild(document.querySelector('.loading'));
+    resultsFromApi.forEach(({ id, title, thumbnail }) => {
+      const keyRearrange = { sku: id, name: title, image: thumbnail };
+      const ProductItemElementCreation = createProductItemElement(keyRearrange);
+      document.querySelector('.items').appendChild(ProductItemElementCreation);
+    });
+    clickAddition();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function sumElement() {
@@ -195,7 +194,6 @@ function setCategory() {
 
 window.onload = () => {
   setCategory();
-  // AssyncMLFetching('computador');
   sumElement();
   setProductsFromLocalStorage();
   emptyCart();
