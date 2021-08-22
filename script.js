@@ -49,18 +49,20 @@ function setPrice(selection) {
     const parsedPrice = parseFloat(joinedPrice);
     summation += parsedPrice;
   }
-  const fixedSummation = summation.toFixed(2);
   /** https://www.horadecodar.com.br/2020/12/07/como-verificar-se-variavel-e-float-ou-inteiro-em-javascript/ */
-  if (Number.isInteger(summation) || Number.isInteger(summation * 10)) {
-    totalPriceSelection.innerHTML = summation;
-  } else { totalPriceSelection.innerHTML = fixedSummation; }
+  const formattedSummation = summation
+    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  totalPriceSelection.innerHTML = `TOTAL: ${formattedSummation}`;
 }
 
 function sumCalc() {
   const totalPriceSelection = document.querySelector('.total-price');
   const itemSelection = document.querySelectorAll('.cart__item');
+  const initialPrice = 0;
+  const formattedPrice = initialPrice
+  .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });// https://www.alura.com.br/artigos/formatando-numeros-no-javascript
   if (itemSelection.length === 0) {
-    totalPriceSelection.innerHTML = 0;
+    totalPriceSelection.innerHTML = `TOTAL: ${formattedPrice}`;
   } else {
     setPrice(itemSelection);
   }
