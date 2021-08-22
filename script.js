@@ -22,7 +22,9 @@ function createProductItemElement({ sku, name, image, price }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('span', 'item__price', formattedPrice));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  section.appendChild(createCustomElement(
+    'button', 'item__add btn btn-success', 'Adicionar ao carrinho!',
+    ));
   
   return section;
 }
