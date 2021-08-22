@@ -114,3 +114,7 @@
 .cart__item {
   align-self: auto;
 }
+
+.item__price {
+  align-self: center;
+}
