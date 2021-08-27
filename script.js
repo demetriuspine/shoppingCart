@@ -184,7 +184,7 @@ function removeItems() {
 }
 
 function setCategory() {
-  const buttonSelection = document.querySelector('.btn');
+  const buttonSelection = document.querySelector('.search-btn');
   const inputSelection = document.querySelector('.input');
   buttonSelection.addEventListener('click', () => {
     removeItems();
